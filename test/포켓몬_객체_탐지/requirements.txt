@@ -1,7 +1,7 @@
-python
-streamlit
-pandas
-numpy
-transformers
-Pillow
-torch
+python==3.12
+streamlit==1.36.0
+pandas==2.2.2
+numpy==1.26.4
+transformers==4.42.3
+Pillow==10.3.0
+torch==2.3.1
