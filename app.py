@@ -23,7 +23,7 @@ except FileNotFoundError:
 
 # 사용자로부터 이미지 업로드 받기
 st.title('포켓몬 도감 ◕‿◕✿')
-uploaded_image = st.file_uploader("이미지를 업로드하세요", type=["jpg", "jpeg", "png"])
+uploaded_image = st.file_uploader("발견한 포켓몬을 찍어주세요!", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
     # 이미지를 열기
@@ -67,7 +67,7 @@ if uploaded_image is not None:
                 }
                 df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
                 df.to_csv(df_path, index=False)  # CSV 파일에 저장
-                st.write("새로운 포켓몬이 추가되었습니다. 정보를 업데이트했습니다.")
+                st.write("미지의 포켓몬을 발견 했습니다!!")
         else:
             st.write(result)
 
