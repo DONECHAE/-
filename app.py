@@ -21,6 +21,11 @@ except FileNotFoundError:
     st.error(f"CSV 파일을 찾을 수 없습니다: {df_path}")
     st.stop()
 
+# 데이터프레임에서 특정 값을 가진 행을 필터링하는 함수
+def show_rows_by_value(df, column, value):
+    result = df[df[column] == value]
+    return result
+
 # 사용자로부터 이미지 업로드 받기
 st.title('포켓몬 도감 ◕‿◕✿')
 uploaded_image = st.file_uploader("발견한 포켓몬을 찍어주세요!", type=["jpg", "jpeg", "png"])
@@ -36,11 +41,6 @@ if uploaded_image is not None:
         predicted_id = model(**extracted).logits.argmax(-1).item()
         predicted_pokemon = model.config.id2label[predicted_id]
         st.write(f"예측된 포켓몬: {predicted_pokemon}")
-
-        # 예측된 포켓몬에 해당하는 데이터 필터링
-        def show_rows_by_value(df, column, value):
-            result = df[df[column] == value]
-            return result
 
         result = show_rows_by_value(df, 'Name', predicted_pokemon)
         st.write("포켓몬 정보:")
@@ -67,7 +67,7 @@ if uploaded_image is not None:
                 }
                 df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
                 df.to_csv(df_path, index=False)  # CSV 파일에 저장
-                st.write("미지의 포켓몬을 발견 했습니다!!")
+                st.write("새로운 포켓몬을 발견했습니다.🎉🎉🎉🎉")
         else:
             st.write(result)
 
@@ -95,7 +95,7 @@ if uploaded_image is not None:
             st.pyplot(fig)
     
     except Exception as e:
-        st.write("미지의 포켓몬을 발견 했습니다!!. 포켓몬의 이름과 정보를 입력해주세요.")
+        st.write("미지의 포켓몬을 발견했습니다!! 포켓몬의 이름과 정보를 입력해주세요.")
         
         name = st.text_input('포켓몬 이름')
         hp = st.number_input('HP', min_value=0, max_value=255, step=1)
@@ -118,7 +118,7 @@ if uploaded_image is not None:
             existing_pokemon = show_rows_by_value(df, 'Name', name)
             if existing_pokemon.empty:
                 df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
-                message = "새로운 포켓몬이 추가되었습니다.🎉🎉"
+                message = "새로운 포켓몬을 발견했습니다.🎉🎉🎉🎉"
             else:
                 df.update(pd.DataFrame([new_data]))
                 message = "미지의 포켓몬 정보를 업데이트했습니다.🎉🎉"
