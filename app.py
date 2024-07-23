@@ -12,7 +12,7 @@ model = ViTForImageClassification.from_pretrained("imjeffhi/pokemon_classifier")
 feature_extractor = ViTFeatureExtractor.from_pretrained('imjeffhi/pokemon_classifier')
 
 # CSV 파일 미리 로드
-df_path = r'C:/Users/Owner/OneDrive - 계명대학교/DC/2024/2024_개인/-/test/포켓몬_객체_탐지/Pokemon.csv'
+df_path = r'C:/Users/Owner/OneDrive - 계명대학교/DC/2024/2024_개인/-/Pokemon.csv'
 df = pd.read_csv(df_path)
 
 # 사용자로부터 이미지 업로드 받기
@@ -116,7 +116,7 @@ if uploaded_image is not None:
 
 
 
-# streamlit run 'C:\Users\Owner\OneDrive - 계명대학교\DC\2024\2024_개인\-\test\포켓몬_객체_탐지\app.py'
+# streamlit run 'C:\Users\Owner\OneDrive - 계명대학교\DC\2024\2024_개인\-\app.py'
 # 6세대까지 인식 가능 + 정보 가지고 있음
 # 7세대는 이름 O, 정보 X
 # 8세대부터는 이름 X, 정보 X
