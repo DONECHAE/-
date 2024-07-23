@@ -1,10 +1,10 @@
-googletrans==4.0.0rc1
+translate==3.6.1
 jupyterlab==4.2.2
-# httpx==0.13.3   # 이 줄을 주석 처리합니다.
 streamlit==1.36.0
 pandas==2.2.2
 numpy==1.26.4
 transformers==4.42.3
 Pillow==10.3.0
 torch==2.3.1
+
 
