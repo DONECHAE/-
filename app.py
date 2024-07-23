@@ -11,9 +11,15 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model = ViTForImageClassification.from_pretrained("imjeffhi/pokemon_classifier").to(device)
 feature_extractor = ViTFeatureExtractor.from_pretrained('imjeffhi/pokemon_classifier')
 
-# CSV 파일 미리 로드
+# CSV 파일 경로 설정
 df_path = 'Pokemon.csv'
-df = pd.read_csv(df_path)
+
+# CSV 파일 미리 로드
+try:
+    df = pd.read_csv(df_path)
+except FileNotFoundError:
+    st.error(f"CSV 파일을 찾을 수 없습니다: {df_path}")
+    st.stop()
 
 # 사용자로부터 이미지 업로드 받기
 st.title('포켓몬 도감 ◕‿◕✿')
@@ -59,9 +65,9 @@ if uploaded_image is not None:
                     'Sp. Def': sp_def,
                     'Speed': speed
                 }
-                df = df.append(new_data, ignore_index=True)
+                df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
                 df.to_csv(df_path, index=False)  # CSV 파일에 저장
-                st.write("정보가 저장되었습니다.")
+                st.write("새로운 포켓몬이 추가되었습니다. 정보를 업데이트했습니다.")
         else:
             st.write(result)
 
@@ -89,7 +95,7 @@ if uploaded_image is not None:
             st.pyplot(fig)
     
     except Exception as e:
-        st.write("모델이 이미지를 인식하지 못했습니다. 포켓몬의 이름과 정보를 입력해주세요.")
+        st.write("미지의 포켓몬을 발견 했습니다!!. 포켓몬의 이름과 정보를 입력해주세요.")
         
         name = st.text_input('포켓몬 이름')
         hp = st.number_input('HP', min_value=0, max_value=255, step=1)
@@ -109,9 +115,16 @@ if uploaded_image is not None:
                 'Sp. Def': sp_def,
                 'Speed': speed
             }
-            df = df.append(new_data, ignore_index=True)
+            existing_pokemon = show_rows_by_value(df, 'Name', name)
+            if existing_pokemon.empty:
+                df = pd.concat([df, pd.DataFrame([new_data])], ignore_index=True)
+                message = "새로운 포켓몬이 추가되었습니다.🎉🎉"
+            else:
+                df.update(pd.DataFrame([new_data]))
+                message = "미지의 포켓몬 정보를 업데이트했습니다.🎉🎉"
             df.to_csv(df_path, index=False)  # CSV 파일에 저장
-            st.write("정보가 저장되었습니다.")
+            st.write(message)
+
 
 
 
