@@ -12,7 +12,7 @@ model = ViTForImageClassification.from_pretrained("imjeffhi/pokemon_classifier")
 feature_extractor = ViTFeatureExtractor.from_pretrained('imjeffhi/pokemon_classifier')
 
 # CSV 파일 미리 로드
-df_path = r'-/Pokemon.csv'
+df_path = '-\Pokemon.csv'
 df = pd.read_csv(df_path)
 
 # 사용자로부터 이미지 업로드 받기
