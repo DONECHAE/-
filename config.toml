@@ -1,0 +1,5 @@
+[theme]
+primaryColor="#1f77b4"  # 파란색 계열
+backgroundColor="#f0f2f6"  # 배경색
+secondaryBackgroundColor="#e0e6ef"  # 사이드바 배경색
+textColor="#262730"  # 텍스트 색상
